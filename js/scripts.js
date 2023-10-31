@@ -4,6 +4,20 @@ function AddressBook() {
   this.currentId = 0;
 }
 
+function listContacts(addressBookToDisplay) {
+  let contactsDiv = document.querySelector("div#contacts");
+  contactsDiv.innerText =  null;
+  const ul = document.createElement("ul");
+  Object.keys(addressBookToDisplay.contacts).forEach(function(key) {
+    const contact = addressBookToDisplay.findContact(key);
+    const li = document.createElement("li");
+    li.append(contact.fullName());
+    li.setAttribute("id", contact.id);
+    ul.append(li);
+  });
+  contactsDiv.append(ul);
+}
+
 AddressBook.prototype.addContact = function(contact) {
   contact.id = this.assignId();
   this.contacts[contact.id] = contact;
